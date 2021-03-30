@@ -1,0 +1,34 @@
+{
+  "name": "chronos-server",
+  "version": "1.0.0",
+  "description": "小程序后端",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HJY-xh/chronos-server.git"
+  },
+  "keywords": [
+    "Node.js、MongoDB、KOA"
+  ],
+  "author": "HJY",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/HJY-xh/chronos-server/issues"
+  },
+  "homepage": "https://github.com/HJY-xh/chronos-server#readme",
+  "dependencies": {
+    "jsonwebtoken": "^8.5.1",
+    "koa": "^2.13.1",
+    "koa-body": "^4.2.0",
+    "koa-jwt": "^4.0.0",
+    "koa-router": "^10.0.0",
+    "mongoose": "^5.12.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
