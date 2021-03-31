@@ -3,8 +3,6 @@ const mongoose = require('mongoose');
 const userSchema = new mongoose.Schema({
 	openId: {
 		type: String,
-		index: true,
-		unique: true,
 	},
 	created: {
 		type: Date,
