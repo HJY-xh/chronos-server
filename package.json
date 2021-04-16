@@ -7,19 +7,7 @@
     "dev": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/HJY-xh/chronos-server.git"
-  },
-  "keywords": [
-    "Node.js、MongoDB、KOA"
-  ],
-  "author": "HJY",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/HJY-xh/chronos-server/issues"
-  },
-  "homepage": "https://github.com/HJY-xh/chronos-server#readme",
   "dependencies": {
     "jsonwebtoken": "^8.5.1",
     "koa": "^2.13.1",
