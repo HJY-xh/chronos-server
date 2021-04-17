@@ -12,7 +12,7 @@ const app = new Koa();
 
 app.use(
 	koaJwt({ secret: Config.secrets }).unless({
-		path: [/^\/addUser|\/login/],
+		path: [/^\/addUser|\/login|\/test/],
 	})
 );
 
