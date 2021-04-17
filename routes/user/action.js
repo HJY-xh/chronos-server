@@ -2,16 +2,14 @@ const mongoose = require('mongoose');
 const User = require('../../models/user.modal');
 
 const signToken = require('../../utils/genToken');
-const getSession = require('../../utils/wxServer');
+const wxServer = require('../../utils/wxServer');
+const { encode } = require('../../utils/crypto');
 
 const getUserByOpenId = async (openId) => {
 	const users = await User.find({
 		openId: openId,
 	});
-	if (users.length) {
-		return users[0];
-	}
-	return null;
+	return users.length > 0 ? users[0] : null;
 };
 
 const test = async (ctx) => {
@@ -25,23 +23,28 @@ const test = async (ctx) => {
 const login = async (ctx) => {
 	const params = ctx.request.body;
 	try {
-		const session = await getSession(params.code);
+		const session = await wxServer.getSession(params.code);
 		const { openid, session_key } = session;
-		let user = getUserByOpenId(openid);
-		await (user
-			? User.create({
-					openId: openId,
-			  })
-			: User.updateOne(
-					{
-						_id: user._id,
-					},
-					{
-						lastLogin: Date.now(),
-					}
-			  ));
-		// const sessionKey = encode(openid + user._id + session_key);
-		// return sessionKey;
+		let user = await getUserByOpenId(openid);
+		if (user) {
+			await User.updateOne(
+				{
+					_id: user._id,
+				},
+				{
+					lastLogin: Date.now(),
+				}
+			);
+		} else {
+			user = await User.create({
+				openId: openid,
+			});
+		}
+		const sessionKey = encode(openid + user._id + session_key);
+		ctx.body = {
+			status: true,
+			session: sessionKey,
+		};
 	} catch (e) {
 		throw new Error('登录失败', e);
 	}
