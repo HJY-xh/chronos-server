@@ -3,7 +3,6 @@ const User = require('../../models/user.modal');
 
 const signToken = require('../../utils/genToken');
 const wxServer = require('../../utils/wxServer');
-const { encode } = require('../../utils/crypto');
 
 const getUserByOpenId = async (openId) => {
 	const users = await User.find({
@@ -12,14 +11,28 @@ const getUserByOpenId = async (openId) => {
 	return users.length > 0 ? users[0] : null;
 };
 
+/**
+ * @function 测试代码
+ */
 const test = async (ctx) => {
+	const token = signToken("6064386ac14712221f67c70f")
 	ctx.status = 200;
 	ctx.body = {
-		status: true,
-		message: 'succ',
+		token
 	};
 };
-// 用户登录
+
+/**
+ * @function 测试代码
+ */
+const test2 = async (ctx) => {
+	ctx.status = 200;
+	ctx.body = {
+		msg: "1"
+	};
+};
+
+// 用户登录/注册
 const login = async (ctx) => {
 	const params = ctx.request.body;
 	try {
@@ -40,38 +53,18 @@ const login = async (ctx) => {
 				openId: openid,
 			});
 		}
-		const sessionKey = encode(openid + user._id + session_key);
+		const token = signToken(user._id);
 		ctx.body = {
 			status: true,
-			session: sessionKey,
+			token,
 		};
 	} catch (e) {
 		throw new Error('登录失败', e);
 	}
 };
 
-const addUser = async (ctx) => {
-	const params = ctx.request.body;
-	const res = await User.find({ openId: params.openId });
-	if (res.length > 0) {
-		ctx.status = 200;
-		ctx.body = {
-			status: false,
-			message: '已存在该用户',
-		};
-		return;
-	}
-	const newUser = new User(params);
-	const user = await newUser.save();
-	var token = signToken(user._id);
-	ctx.status = 200;
-	ctx.body = {
-		token,
-	};
-};
-
 module.exports = {
 	test,
+	test2,
 	login,
-	addUser,
 };
