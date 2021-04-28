@@ -5,8 +5,12 @@ const goalSchema = new mongoose.Schema({
         type: String
     },
     status: {
-        type: number,
-        default: 1
+        type: Number,
+        default: 1 // 0->完成, 1->未完成
+    },
+    actionIds: {
+        type: Array,
+        default: []
     }
 });
 
