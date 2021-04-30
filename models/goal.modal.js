@@ -18,6 +18,9 @@ const actionSchema = new mongoose.Schema({
 });
 
 const goalSchema = new mongoose.Schema({
+    userId: {
+        type: String
+    },
     name: {
         type: String
     },
@@ -32,6 +35,11 @@ const goalSchema = new mongoose.Schema({
     actions: [actionSchema]
 });
 
+const Action = mongoose.model("Action", actionSchema);
 const Goal = mongoose.model("Goal", goalSchema);
 
-module.exports = Goal;
+
+module.exports = {
+    Action,
+    Goal
+};

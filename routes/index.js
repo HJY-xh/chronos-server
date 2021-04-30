@@ -1,7 +1,3 @@
-const Router = require('koa-router');
-
-const router = new Router();
-
 module.exports = (app) => {
 	app.use(async (ctx, next) => {
 		ctx.set('Access-Control-Allow-Origin', 'http://localhost:4000');
@@ -13,4 +9,5 @@ module.exports = (app) => {
 	});
 
 	app.use(require('./user/index').routes());
+	app.use(require('./goal/index').routes());
 };
