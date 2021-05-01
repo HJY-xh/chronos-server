@@ -10,11 +10,11 @@ connectDB();
 
 const app = new Koa();
 
-app.use(
-	koaJwt({ secret: Config.secrets }).unless({
-		path: [/^\/addUser|\/login|\/test/],
-	})
-);
+// app.use(
+// 	koaJwt({ secret: Config.secrets }).unless({
+// 		path: [/^\/addUser|\/login|\/test/],
+// 	})
+// );
 
 app.use(koaBody());
 
