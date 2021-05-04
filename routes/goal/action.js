@@ -8,7 +8,26 @@ const getGoalByName = async (name) => {
 };
 
 const getActionList = async (ctx) => {
-
+	const params = ctx.request.body;
+	const {goalId} = params;
+	try{
+		const goal = await Goal.findById(goalId);
+		const data = goal.actions.map(item=>{
+			return{
+				id: item.id,
+				name: item.name,
+				remark: item.remark,
+				startTime: new Date(item.startTime).getTime(),
+				endTime: new Date(item.endTime).getTime()
+			}
+		})
+		ctx.body = {
+			status: true,
+			data
+		};
+	}catch(e){
+		throw new Error("查询失败", e);
+	}
 };
 
 const addAction = async (ctx) => {
