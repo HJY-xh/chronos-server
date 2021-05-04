@@ -22,15 +22,13 @@ const goalSchema = new mongoose.Schema({
         type: String
     },
     name: {
-        type: String
+        type: String,
+        index: true,
+        unique: true
     },
     status: {
         type: Number,
         default: 1 // 0->完成, 1->未完成
-    },
-    actionIds: {
-        type: Array,
-        default: []
     },
     actions: [actionSchema]
 });

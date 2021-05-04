@@ -13,8 +13,23 @@ const finishAction = async (ctx) => {};
 const getActionList = async (ctx) => {};
 
 const getGoalList = async (ctx) => {
-	const params = ctx.request.body;
-	// const {}
+	try {
+		let goals = await Goal.find({});
+		goals = goals.map(item=>{
+			return {
+				id: item._id,
+				status: item.status,
+				name: item.name,
+				actions: item.actions
+			}
+		})
+		ctx.body = {
+			status: true,
+			data: goals
+		};
+	} catch (e) {
+		throw new Error('查询失败', e);
+	}
 };
 
 const createGoal = async (ctx) => {
