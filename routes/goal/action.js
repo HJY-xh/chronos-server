@@ -1,5 +1,4 @@
-const { Goal, Action } = require('../../models/goal.modal');
-
+const { Goal } = require('../../models/goal.modal');
 
 const getGoalByName = async (name) => {
 	const goals = await Goal.find({
@@ -8,10 +7,46 @@ const getGoalByName = async (name) => {
 	return goals.length > 0 ? goals[0] : null;
 };
 
-const finishAction = async (ctx) => {};
-
 const getActionList = async (ctx) => {
 
+};
+
+const addAction = async (ctx) => {
+	const params = ctx.request.body;
+	const { goalId, name, startTime, endTime, remark } = params;
+	try{
+		const goal = await Goal.findById(goalId);
+		const { actions } = goal;
+		const action = await Goal.updateOne({
+			_id: goalId
+		},{
+			actions: [...actions, {name, startTime, endTime, remark}]
+		})
+		ctx.body = {
+			status: true,
+			message: "创建action成功"
+		}
+	} catch (e) {
+		throw new Error('创建失败', e);
+	}
+};
+
+const editAction = async (ctx) => {
+	const params = ctx.request.body;
+	const { goalId, id, name, remark } = params;
+	try{
+		const goal = await Goal.findById(goalId);
+		const action = goal.actions.id(id);
+		action.name = name;
+		action.remark = remark;
+		await goal.save();
+		ctx.body = {
+			status: true,
+			message: "更新action成功"
+		};
+	} catch (e) {
+		throw new Error('更新失败', e);
+	}
 };
 
 const getGoalList = async (ctx) => {
@@ -83,8 +118,9 @@ const completeGoal = async (ctx) => {
 };
 
 module.exports = {
-	finishAction,
 	getActionList,
+	addAction,
+	editAction,
 	getGoalList,
 	createGoal,
 	completeGoal
