@@ -28,7 +28,7 @@ const goalSchema = new mongoose.Schema({
     },
     status: {
         type: Number,
-        default: 1 // 0->完成, 1->未完成
+        default: 0 // 0->未完成, 1->完成
     },
     actions: [actionSchema]
 });

@@ -10,7 +10,9 @@ const getGoalByName = async (name) => {
 
 const finishAction = async (ctx) => {};
 
-const getActionList = async (ctx) => {};
+const getActionList = async (ctx) => {
+
+};
 
 const getGoalList = async (ctx) => {
 	try {
@@ -59,9 +61,31 @@ const createGoal = async (ctx) => {
 	}
 };
 
+const completeGoal = async (ctx) => {
+	const params = ctx.request.body;
+	const user = ctx.state.user;
+	const { id } = params;
+	try {
+		const goal = await Goal.findById(id);
+		await Goal.updateOne({
+			_id: id
+		},{
+			status: 1
+		})
+		console.log(goal);
+		ctx.body = {
+			status: true,
+			message: '编辑成功',
+		};
+	} catch (e) {
+		throw new Error('编辑失败', e);
+	}
+};
+
 module.exports = {
 	finishAction,
 	getActionList,
 	getGoalList,
 	createGoal,
+	completeGoal
 };
