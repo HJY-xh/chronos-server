@@ -1,5 +1,13 @@
 const { Goal, Action } = require('../../models/goal.modal');
 
+
+const getGoalByName = async (name) => {
+	const goals = await Goal.find({
+		name,
+	});
+	return goals.length > 0 ? goals[0] : null;
+};
+
 const finishAction = async (ctx) => {};
 
 const getActionList = async (ctx) => {};
@@ -14,6 +22,15 @@ const createGoal = async (ctx) => {
 	const user = ctx.state.user;
 	const { name } = params;
 	try {
+		const goal = await getGoalByName(name);
+		if (goal) {
+			ctx.status = 409;
+			ctx.body = {
+				status: true,
+				message: '创建失败，该目标已存在',
+			};
+			return
+		}
 		await Goal.create({
 			userId: user._id,
 			name,

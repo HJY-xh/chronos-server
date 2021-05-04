@@ -15,7 +15,7 @@ const getUserByOpenId = async (openId) => {
  * @function 测试代码
  */
 const test = async (ctx) => {
-	const token = signToken('607a923cd265ca4b644c5389');
+	const token = signToken('6064386ac14712221f67c70f');
 	ctx.status = 200;
 	ctx.body = {
 		token,
