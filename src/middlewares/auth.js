@@ -14,6 +14,8 @@ const auth = async (ctx, next) => {
 	} catch (e) {
 		ctx.status = 401;
 		ctx.body = {
+			status: false,
+			// eslint-disable-next-line prettier/prettier
 			message: '您的身份认证失败'
 		};
 	}
