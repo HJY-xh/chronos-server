@@ -1,6 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
-const nodeExternals = require('webpack-node-nodeExternals');
+const nodeExternals = require('webpack-node-externals');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const webpackConfig = {
@@ -26,17 +26,17 @@ const webpackConfig = {
 	resolve: {
 		modules: [path.join(__dirname, 'src/index.js'), 'node_modules'],
 		extensions: ['.js', '.json'],
-		alis: {
+		alias: {
 			'@': path.join(__dirname, '../src'),
 		},
 		fallback: {
-			console: true,
-			global: true,
-			process: true,
-			__filename: true,
-			__dirname: true,
-			path: true,
-		},
+			console: false,
+			global: false,
+			process: false,
+			__filename: false,
+			__dirname: false,
+			path: false,
+		}
 	},
 	externals: [nodeExternals()],
 	plugins: [

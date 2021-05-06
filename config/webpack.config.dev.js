@@ -6,7 +6,7 @@ const webpackConfig = merge(baseConfig, {
 	devtool: 'eval-source-map',
 	stats: {
 		children: false,
-		module: false,
+		modules: false,
 	},
 });
 
