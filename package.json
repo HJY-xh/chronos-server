@@ -4,8 +4,12 @@
   "description": "小程序后端",
   "main": "app.js",
   "scripts": {
-    "dev": "nodemon app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon --exec babel-node src/index.js",
+    "webpack:debug": "node --inspect-brk ./node_modules/.bin/webpack --config config/webpack.config.prod.js --progress",
+    "watch": "cross-env NODE_ENV=development webpack --watch --config config/webpack.config.dev.js --progress",
+    "debug": "nodemon --inspect dist/server.bundle.js",
+    "dev": "npm-run-all -p watch debug",
+    "build": "cross-env NODE_ENV=production webpack --config config/webpack.config.prod.js"
   },
   "license": "MIT",
   "dependencies": {
