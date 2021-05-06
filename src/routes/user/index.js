@@ -1,6 +1,6 @@
 const Router = require('koa-router');
 const Action = require('./action');
-const auth = require('../../../middlewares/auth');
+const auth = require('../../middlewares/auth');
 
 const router = new Router();
 
