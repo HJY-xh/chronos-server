@@ -14,9 +14,8 @@ const auth = async (ctx, next) => {
 	} catch (e) {
 		ctx.status = 401;
 		ctx.body = {
-			message: '您的身份认证失败',
+			message: '您的身份认证失败'
 		};
 	}
 };
-
 module.exports = auth;

@@ -2,14 +2,23 @@
   "name": "chronos-server",
   "version": "1.0.0",
   "description": "小程序后端",
-  "main": "app.js",
+  "main": "src/index.js",
   "scripts": {
     "start": "nodemon --exec babel-node src/index.js",
     "webpack:debug": "node --inspect-brk ./node_modules/.bin/webpack --config config/webpack.config.prod.js --progress",
     "watch": "cross-env NODE_ENV=development webpack --watch --config config/webpack.config.dev.js --progress",
     "debug": "nodemon --inspect dist/server.bundle.js",
     "dev": "npm-run-all -p watch debug",
-    "build": "cross-env NODE_ENV=production webpack --config config/webpack.config.prod.js"
+    "build": "cross-env NODE_ENV=production webpack --config config/webpack.config.prod.js",
+    "prepare": "husky install",
+    "test": "lint-staged"
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier --write",
+      "eslint",
+      "git add"
+    ]
   },
   "license": "MIT",
   "dependencies": {
@@ -32,6 +41,8 @@
     "eslint": "^7.25.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
+    "husky": "^6.0.0",
+    "lint-staged": "^10.5.4",
     "nodemon": "^2.0.7",
     "npm-run-all": "^4.1.5",
     "prettier": "2.2.1",
