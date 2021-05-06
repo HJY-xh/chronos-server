@@ -36,7 +36,7 @@ const webpackConfig = {
 			__filename: false,
 			__dirname: false,
 			path: false,
-		}
+		},
 	},
 	externals: [nodeExternals()],
 	plugins: [

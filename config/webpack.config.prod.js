@@ -20,7 +20,7 @@ const webpackConfig = merge(baseConfig, {
 					},
 					mangle: true,
 				},
-				parallel: true
+				parallel: true,
 			}),
 		],
 		splitChunks: {
