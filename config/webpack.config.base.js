@@ -6,28 +6,28 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const webpackConfig = {
 	target: 'node',
 	entry: {
-		server: path.join(__dirname, '../src/index.js'),
+		server: path.join(__dirname, '../src/index.js')
 	},
 	output: {
 		filename: '[name].bundle.js',
-		path: path.join(__dirname, '../dist'),
+		path: path.join(__dirname, '../dist')
 	},
 	module: {
 		rules: [
 			{
 				test: /\.js/,
 				use: {
-					loader: 'babel-loader',
+					loader: 'babel-loader'
 				},
-				include: path.join(__dirname, '../src'),
-			},
-		],
+				include: path.join(__dirname, '../src')
+			}
+		]
 	},
 	resolve: {
 		modules: [path.join(__dirname, 'src/index.js'), 'node_modules'],
 		extensions: ['.js', '.json'],
 		alias: {
-			'@': path.join(__dirname, '../src'),
+			'@': path.join(__dirname, '../src')
 		},
 		fallback: {
 			console: false,
@@ -35,9 +35,10 @@ const webpackConfig = {
 			process: false,
 			__filename: false,
 			__dirname: false,
-			path: false,
-		},
+			path: false
+		}
 	},
+	externalsPresets: { node: true },
 	externals: [nodeExternals()],
 	plugins: [
 		new CleanWebpackPlugin(),
@@ -45,9 +46,9 @@ const webpackConfig = {
 			'process.env.NODE_ENV':
 				process.env.NODE_ENV === 'production'
 					? JSON.stringify('production')
-					: JSON.stringify('development'),
-		}),
-	],
+					: JSON.stringify('development')
+		})
+	]
 };
 
 module.exports = webpackConfig;
