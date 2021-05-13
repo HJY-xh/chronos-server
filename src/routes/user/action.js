@@ -17,7 +17,6 @@ const test = async (ctx) => {
 	const token = signToken('6064386ac14712221f67c70f');
 	ctx.status = 200;
 	ctx.body = {
-		msg: 'jenkins构建',
 		token
 	};
 };
