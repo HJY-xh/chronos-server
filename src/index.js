@@ -12,6 +12,10 @@ app.use(koaBody());
 
 routes(app);
 
+process.on('uncaughtException', (err) => {
+	console.log(err);
+});
+
 app.listen(Config.port, () => {
 	console.log(`app start at ${Config.port}`);
 });
