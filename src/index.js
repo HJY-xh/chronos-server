@@ -26,9 +26,9 @@ process.on('uncaughtException', (err) => {
 	console.log(err);
 });
 
-const options = {
-	key: fs.readFileSync(path.join(path.resolve('.'), '/dist/ssl/server.key')),
-	cert: fs.readFileSync(path.join(path.resolve('.'), '/dist/ssl/server.crt'))
+let options = {
+	key: fs.readFileSync(path.join(path.resolve('.'), '/ssl/server.key')),
+	cert: fs.readFileSync(path.join(path.resolve('.'), '/ssl/server.crt'))
 };
 
 https.createServer(options, app.callback()).listen(Config.port, () => {
