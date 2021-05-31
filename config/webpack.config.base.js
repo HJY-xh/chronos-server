@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const isDev = process.env.NODE_ENV !== 'production';
 
 const webpackConfig = {
 	target: 'node',
@@ -43,10 +44,8 @@ const webpackConfig = {
 	plugins: [
 		new CleanWebpackPlugin(),
 		new webpack.DefinePlugin({
-			'process.env.NODE_ENV':
-				process.env.NODE_ENV === 'production'
-					? JSON.stringify('production')
-					: JSON.stringify('development')
+			'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+			__DEV__: isDev
 		})
 	]
 };
