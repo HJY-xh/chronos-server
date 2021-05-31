@@ -5,14 +5,18 @@ const connectDB = require('./utils/db');
 const routes = require('./routes/index');
 const https = require('https');
 const fs = require('fs');
-const enforceHttps = require('koa-sslify');
+const path = require('path');
+const { default: enforceHttps } = require('koa-sslify');
 
 connectDB();
 
 const app = new Koa();
 
-// 强制转化http请求为https
-app.use(enforceHttps());
+app.use(
+	enforceHttps({
+		port: Config.port
+	})
+);
 
 app.use(koaBody());
 
@@ -23,8 +27,8 @@ process.on('uncaughtException', (err) => {
 });
 
 const options = {
-	key: fs.readFileSync('../ssl/xh-hjy.top.key'),
-	cert: fs.readFileSync('../ssl/xh-hjy.top.pem')
+	key: fs.readFileSync(path.join(path.resolve('.'), '/dist/ssl/server.key')),
+	cert: fs.readFileSync(path.join(path.resolve('.'), '/dist/ssl/server.crt'))
 };
 
 https.createServer(options, app.callback()).listen(Config.port, () => {
